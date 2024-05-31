@@ -96,7 +96,7 @@ export const PostCreate = () => {
       <TitleBox>
         <PageTitle title="Create Categorie" />
       </TitleBox>
-      <div>
+      <div className="">
         <Form onSubmit={submitCreatePostHandler}>
           <FormLabel labelId="title" label="title" />
           <FormInput

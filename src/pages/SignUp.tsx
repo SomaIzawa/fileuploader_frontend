@@ -1,7 +1,13 @@
 import { FormEvent, useContext, useEffect, useState } from "react"
-import { AuthContext } from "../providers/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUserAPI } from "../adapters/user/user";
+import { TitleBox } from "../components/Title/TitleBox";
+import { PageTitle } from "../components/Title/PageTitle";
+import { FormLabel } from "../components/Form/FormLabel";
+import { FormInput } from "../components/Form/FormInput";
+import { SimpleButton } from "../components/Button/SimpleButton";
+import { StyledLink } from "../components/Link/StyledLink";
+import { Form } from "../components/Form/Form";
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -22,58 +28,42 @@ export const SignUp = () => {
   }
 
   return (
-    <div>
-      <div>SignUp</div>
-      <form onSubmit={submitSignUpHandler}>
-        <dl>
-          <dt>
-            email
-          </dt>
-          <dd>
-            <input 
-            type="email" 
-            name="email" 
-            autoFocus 
-            placeholder="email" 
-            onChange={(e) => setEmail(e.target.value)}
-            value={email} />
-          </dd>
-        </dl>
-        <dl>
-          <dt>
-            password
-          </dt>
-          <dd>
-            <input 
-            type="password" 
-            name="password" 
-            autoFocus 
-            placeholder="password" 
-            onChange={(e) => setPassword(e.target.value)}
-            value={password} />
-          </dd>
-        </dl>
-        <dl>
-          <dt>
-            password_confirm
-          </dt>
-          <dd>
-            <input 
-            type="password" 
-            name="password_confirm" 
-            autoFocus 
-            placeholder="password confirm" 
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-            value={passwordConfirm} />
-          </dd>
-        </dl>
+    <div className='py-5 px-10 h-screen flex-grow bg-slate-200'>
+      <TitleBox>
+        <PageTitle title="SignUp" />
+      </TitleBox>
+      <Form onSubmit={submitSignUpHandler}>
+        <FormLabel labelId="email" label="email" />
+        <FormInput
+          id="email"
+          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          type="email"
+        />
+        <FormLabel labelId="password" label="password" />
+        <FormInput
+          id="password"
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="password"
+        />
+        <FormLabel labelId="password_confirm" label="password_confirm" />
+        <FormInput
+          id="password_confirm"
+          placeholder="password_confirm"
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+          value={passwordConfirm}
+          type="password"
+        />
+        <br />
         <div>
-          <button type="submit">
-            会員登録
-          </button>
+            <SimpleButton type="submit" label="Login" />
         </div>
-      </form>
-      <Link to={"/login"}>go login</Link>
+        <br />
+        <StyledLink to="/login" label="Existing members, please log in here" />  
+      </Form>
     </div>
   )
 }

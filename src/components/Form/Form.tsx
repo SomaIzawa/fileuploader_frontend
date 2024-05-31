@@ -10,7 +10,7 @@ export const Form = ({
   onSubmit
 }: Props) => {
   return (
-    <form onSubmit={onSubmit} className="rounded-md py-7 px-10 shadow-md">
+    <form onSubmit={onSubmit} className="rounded-md py-7 px-10 shadow-md bg-white">
       { children }
     </form>
   )

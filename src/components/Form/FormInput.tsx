@@ -4,6 +4,7 @@ type Props = {
   value: string
   id: string
   placeholder?: string
+  type?: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -11,12 +12,13 @@ export const FormInput = ({
   value,
   id,
   placeholder = "",
+  type = "text",
   onChange,
 } :Props) => {
   return (
     <div>
       <input 
-      type="text" 
+      type={type}
       id={id} 
       autoFocus
       value={value}
