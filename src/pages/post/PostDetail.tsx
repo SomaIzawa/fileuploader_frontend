@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { usePostAPI } from "../../adapters/post/post"
 import { LinkButton } from "../../components/Link/LinkButton"
 import { PageTitle } from "../../components/Title/PageTitle"
@@ -16,13 +16,15 @@ import { formatDate, isoStringToDate } from "../../utils"
 import { Table } from "../../components/Table/Table"
 import { Th } from "../../components/Table/Th"
 import { Td } from "../../components/Table/Td"
+import { FileTypeIcon } from "../../components/Tag/FileTypeIcon"
+import { AuthContext } from "../../providers/auth"
 
 export const PostDetail = () => {
   const { postId } = useParams();
   const [post, setPost] = useState<Post>(initPost())
   const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
-
-  // 
+  const { userId } = useContext(AuthContext)
+  
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -107,24 +109,29 @@ export const PostDetail = () => {
               <Th></Th>
               <Th>ファイル名</Th>
               <Th>ダウンロード</Th>
-              <Th>削除</Th>
+              { userId == post.user.id && (
+                <Th>削除</Th>
+              )}
             </tr>
           </thead>
           <tbody>
-          { post.files.map((file) => (
+          { post.files.map((file, index) => (
             <tr>
               <Td>
-                
+                { index+1 }
               </Td>
               <Td>
+                <FileTypeIcon fileType={file.type} />
                 { file.file_name }.{ file.type }
               </Td>
               <Td>
                 <SimpleButton type='button' label='download' onClick={() => {onClickDownloadHandler(file.id)}} />
               </Td>
-              <Td>
-                <SimpleButton type='button' label='delete' color="warningRed" onClick={() => {onClickDeleteHandler(file.id)}} />
-              </Td>
+              { userId == post.user.id && (
+                <Td>
+                  <SimpleButton type='button' label='delete' color="warningRed" onClick={() => {onClickDeleteHandler(file.id)}} />
+                </Td>
+              ) }
             </tr>
             )) }
           </tbody>

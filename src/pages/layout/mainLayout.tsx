@@ -34,8 +34,8 @@ export default function MainLayout() {
       <main className='py-5 px-10 flex-grow bg-gray-100'>
         <Outlet />
       </main>
-      <footer className='py-5 px-10 bg-slate-600'>
-        this is footer
+      <footer className='py-5 px-10 bg-slate-600 text-white flex justify-center items-center'>
+        © All rights reserved by izawasoma
       </footer>
     </div>
   )
