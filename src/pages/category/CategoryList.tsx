@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Category } from '../../adapters/category/category_schema'
 import { useCategoryAPI } from '../../adapters/category/category'
-import { AuthContext } from '../../providers/auth'
 import { PageTitle } from '../../components/Title/PageTitle' 
 import { LinkButton } from '../../components/Link/LinkButton'
+import { Th } from '../../components/Table/Th'
+import { Table } from '../../components/Table/Table'
+import { Td } from '../../components/Table/Td'
 
 export const CategoryList = () => {
   const [categories, setCategories] = useState<Category[]>([])
@@ -18,16 +20,6 @@ export const CategoryList = () => {
     }
     getCategories();
   }, [])
-
-  const onClickHandler = async () => {
-    try {
-      const res = await useCategoryAPI.list()
-      setCategories(res)
-    } catch(err) {
-      console.log(err)
-    }
-  }
-  
   
   return (
     <>
@@ -35,22 +27,22 @@ export const CategoryList = () => {
         <PageTitle title='Categories' />
         <LinkButton label='Create' to='/categories/new'/>
       </div>
-      <table>
+      <Table>
         <thead>
           <tr>
-            <th>id</th>
-            <th>name</th>
+            <Th>ID</Th>
+            <Th>Category Name</Th>
           </tr>
         </thead>
         <tbody>
           { categories.map(category => 
             <tr key={category.name}>
-              <td>{ category.id }</td>
-              <td>{ category.name }</td>
+              <Td>{ category.id }</Td>
+              <Td>{ category.name }</Td>
             </tr>
           ) }
         </tbody>
-      </table>
+      </Table>
     </>
   )
 }

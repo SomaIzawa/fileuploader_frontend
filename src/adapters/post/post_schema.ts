@@ -11,8 +11,8 @@ export type Post = {
 	category: Category;
 	files: FileContent[];
   signed_url: string;
-	created_at: Date;
-	updated_at: Date;
+	created_at: string;
+	updated_at: string;
 }
 
 export const initPost = (): Post => {
@@ -25,7 +25,7 @@ export const initPost = (): Post => {
     category: initCategory(),
     files: [],
     signed_url: "",
-    created_at: new Date(0),
-    updated_at: new Date(0),
+    created_at: new Date(0).toISOString(),
+    updated_at: new Date(0).toISOString(),
   };
 }

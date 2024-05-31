@@ -12,9 +12,9 @@ export type User = {
   id :number;
   name :string;
   email :string;
-  allowed_at :Date;
-  created_at :Date;
-  updated_at :Date;
+  allowed_at :string;
+  created_at :string;
+  updated_at :string;
 }
 
 export const initUser = (): User => {
@@ -22,8 +22,8 @@ export const initUser = (): User => {
     id: 0,
     name: '',
     email: '',
-    allowed_at: new Date(0), // Epoch time (1970-01-01)
-    created_at: new Date(0),
-    updated_at: new Date(0),
+    allowed_at: new Date(0).toISOString(), // Epoch time (1970-01-01)
+    created_at: new Date(0).toISOString(),
+    updated_at: new Date(0).toISOString(),
   };
 }

@@ -6,6 +6,12 @@ import { TitleBox } from "../../components/Title/TitleBox"
 import { Post } from "../../adapters/post/post_schema"
 import { StyledLink } from "../../components/Link/StyledLink"
 import { useFileAPI } from "../../adapters/file/file"
+import { Table } from "../../components/Table/Table"
+import { Th } from "../../components/Table/Th"
+import { Td } from "../../components/Table/Td"
+import { IconImg } from "../../components/Media/IconImg"
+import { formatDate, isoStringToDate } from "../../utils"
+import { NomalTag } from "../../components/Tag/NomalTag"
 
 export const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([])
@@ -36,33 +42,40 @@ export const PostList = () => {
         <PageTitle title="Post List" />
         <LinkButton label='Create' to='/posts/new'/>
       </TitleBox>
-      <table>
+      <Table>
         <thead>
           <tr>
-            <th>サムネイル</th>
-            <th>投稿日時</th>
-            <th>タイトル</th>
-            <th>投稿者</th>
-            <th>操作</th>
+            <Th>サムネイル</Th>
+            <Th>投稿日時</Th>
+            <Th>タイトル</Th>
+            <Th>投稿者</Th>
+            <Th>操作</Th>
           </tr>
         </thead>
         <tbody>
           { posts.map((post) => (
             <tr key={post.id}>
-              <td><img 
-              className="h-40" 
-              src={post.signed_url} 
-              alt={`投稿ID${post.id}のサムネイル画像`} /></td>
-              <td>{ post.created_at.toLocaleString() }</td>
-              <td>{ `【${post.category.name}】${post.title}` }</td>
-              <td>{ post.user.name }</td>
-              <td>
-                <StyledLink to={`/posts/${post.id}`} label="詳細ページへ" />
-              </td>
+              <Td>
+                <IconImg
+                size="l"
+                src={post.signed_url} 
+                alt={`投稿ID${post.id}のサムネイル画像`} />
+              </Td>
+              <Td>{ formatDate(isoStringToDate(post.created_at)) }</Td>
+              <Td>
+                <NomalTag label={post.category.name} />
+                <span className="items-center ">
+                  { post.title }
+                </span>
+              </Td>
+              <Td>{ post.user.name }</Td>
+              <Td>
+                <LinkButton to={`/posts/${post.id}`} label="詳細ページへ" />
+              </Td>
             </tr>
           )) }
         </tbody>
-      </table>
+      </Table>
     </>
   )
 }

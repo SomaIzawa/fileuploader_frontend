@@ -5,8 +5,8 @@ export type FileContent = {
   file_name: string
   type: string
   user: User
-  created_at: Date
-  updated_at: Date
+  created_at: string
+  updated_at: string
 }
 
 export type GetSignedURLReq = {

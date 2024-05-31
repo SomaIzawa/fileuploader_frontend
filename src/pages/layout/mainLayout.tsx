@@ -31,7 +31,7 @@ export default function MainLayout() {
           <button onClick={logoutButtonHandler}>ログアウト</button>    
         </div>
       </header>
-      <main className='py-5 px-10 flex-grow'>
+      <main className='py-5 px-10 flex-grow bg-gray-100'>
         <Outlet />
       </main>
       <footer className='py-5 px-10 bg-slate-600'>

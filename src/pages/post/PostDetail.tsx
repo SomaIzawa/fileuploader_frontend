@@ -8,6 +8,14 @@ import { StyledLink } from "../../components/Link/StyledLink"
 import { useParams } from "react-router-dom"
 import { useFileAPI } from "../../adapters/file/file"
 import { SimpleButton } from "../../components/Button/SimpleButton"
+import { Img } from "../../components/Media/Img"
+import { Dl } from "../../components/Dl/Dl"
+import { Dt } from "../../components/Dl/Dt"
+import { Dd } from "../../components/Dl/Dd"
+import { formatDate, isoStringToDate } from "../../utils"
+import { Table } from "../../components/Table/Table"
+import { Th } from "../../components/Table/Th"
+import { Td } from "../../components/Table/Td"
 
 export const PostDetail = () => {
   const { postId } = useParams();
@@ -69,56 +77,58 @@ export const PostDetail = () => {
       <TitleBox>
         <PageTitle title="Post Detail" />
       </TitleBox>
-      <div>
-        <div>
-          <img src={thumbnailUrl} alt={`投稿ID${post.id}のサムネイル画像`} />
-        </div>
-        <dl>
-          <dt>タイトル</dt>
-          <dd>{ post.title }</dd>
-        </dl>
-        <dl>
-          <dt>コメント</dt>
-          <dd>{ post.comment }</dd>
-        </dl>
-        <dl>
-          <dt>カテゴリ</dt>
-          <dd>{ post.category.name }</dd>
-        </dl>
-        <dl>
-          <dt>投稿者</dt>
-          <dd>{ post.user.name }さんの投稿</dd>
-        </dl>
-        <dl>
-          <dt>投稿日時</dt>
-          <dd>{ post.created_at.toLocaleString() }</dd>
-        </dl>
+      <div className="rounded-md py-7 px-10 shadow-md bg-white">
+        <Img src={thumbnailUrl} alt={`投稿ID${post.id}のサムネイル画像`} size="m" showBg={true} />
+        <Dl>
+          <Dt>タイトル</Dt>
+          <Dd>{ post.title }</Dd>
+        </Dl>
+        <Dl>
+          <Dt>コメント</Dt>
+          <Dd>{ post.comment }</Dd>
+        </Dl>
+        <Dl>
+          <Dt>カテゴリ</Dt>
+          <Dd>{ post.category.name }</Dd>
+        </Dl>
+        <Dl>
+          <Dt>投稿者</Dt>
+          <Dd>{ post.user.name }さんの投稿</Dd>
+        </Dl>
+        <Dl>
+          <Dt>投稿日時</Dt>
+          <Dd>{ formatDate(isoStringToDate(post.created_at)) }</Dd>
+        </Dl>
       </div>
       <div className="my-10">
-        <table>
+        <Table>
           <thead>
             <tr>
-              <th>ファイル名</th>
-              <th>ダウンロード</th>
-              <th>削除</th>
+              <Th></Th>
+              <Th>ファイル名</Th>
+              <Th>ダウンロード</Th>
+              <Th>削除</Th>
             </tr>
           </thead>
           <tbody>
           { post.files.map((file) => (
             <tr>
-              <td>
+              <Td>
+                
+              </Td>
+              <Td>
                 { file.file_name }.{ file.type }
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <SimpleButton type='button' label='download' onClick={() => {onClickDownloadHandler(file.id)}} />
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <SimpleButton type='button' label='delete' color="warningRed" onClick={() => {onClickDeleteHandler(file.id)}} />
-              </td>
+              </Td>
             </tr>
             )) }
           </tbody>
-        </table>
+        </Table>
       </div>
       <StyledLink to="/posts" label="一覧ページへ戻る" />
     </>
