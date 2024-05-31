@@ -10,6 +10,7 @@ import { StyledLink } from "../components/Link/StyledLink";
 import { Form } from "../components/Form/Form";
 
 export const SignUp = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -18,6 +19,7 @@ export const SignUp = () => {
   const submitSignUpHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await useUserAPI.signup({
+      name: name,
       email: email,
       password: password,
       password_confirm: passwordConfirm,
@@ -33,6 +35,14 @@ export const SignUp = () => {
         <PageTitle title="SignUp" />
       </TitleBox>
       <Form onSubmit={submitSignUpHandler}>
+        <FormLabel labelId="name" label="name" />
+        <FormInput
+          id="name"
+          placeholder="name"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          type="name"
+        />
         <FormLabel labelId="email" label="email" />
         <FormInput
           id="email"
@@ -59,7 +69,7 @@ export const SignUp = () => {
         />
         <br />
         <div>
-            <SimpleButton type="submit" label="Login" />
+            <SimpleButton type="submit" label="Join Us!!" />
         </div>
         <br />
         <StyledLink to="/login" label="Existing members, please log in here" />  

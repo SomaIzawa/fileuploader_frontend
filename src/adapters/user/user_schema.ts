@@ -4,6 +4,7 @@ export type LoginReq = {
 }
 
 export type SignUpReq = LoginReq & {
+  name: string
   password_confirm: string
 }
 
